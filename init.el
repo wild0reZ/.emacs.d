@@ -8,6 +8,7 @@
 (toggle-scroll-bar -1)
 (tool-bar-mode -1)
 (setq inhibit-startup-screen t)
+(setq display-line-numbers 'relative)
 
 ;; use-package
 (unless (package-installed-p 'use-package) 
@@ -20,8 +21,8 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages '(elisp-format magit evil-matchit evil-commentary evil-surround evil
-					    use-package)))
+ '(package-selected-packages
+   '(counsel swiper ivy ace-window elisp-format magit evil-matchit evil-commentary evil-surround evil use-package)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -61,3 +62,38 @@
 ;; magit
 (use-package magit 
   :ensure t)
+
+;; ace-window
+(use-package ace-window
+  :ensure t
+  :config
+  (global-set-key (kbd "M-o") 'ace-window))
+
+;; swiper
+(use-package swiper
+  :ensure t)
+
+;; counsel
+(use-package counsel
+  :ensure t)
+
+;; ivy
+(use-package ivy
+  :ensure t
+  :after (swiper)
+  :diminish (ivi-mode . "")
+  :bind
+  (:map ivy-mode-map
+	("C-'" . ivy-avy))
+  :config
+  (ivy-mode 1)
+  (setq ivy-use-virtual-buffers t)
+  (setq ivy-height 10)
+  (setq enable-recursive-minibuffers t)
+  (global-set-key (kbd "C-s") 'swiper-isearch)
+  (global-set-key (kbd "M-x") 'counsel-M-x)
+  (global-set-key (kbd "C-x C-f") 'counsel-find-file)
+  (global-set-key (kbd "M-y") 'counsel-yank-pop)
+  (global-set-key (kbd "C-x b") 'ivy-switch-buffer)
+  (global-set-key (kbd "C-c v") 'ivy-push-view)
+  (global-set-key (kbd "C-c V") 'ivy-pop-view))
