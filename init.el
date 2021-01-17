@@ -9,6 +9,7 @@
 (tool-bar-mode -1)
 (setq inhibit-startup-screen t)
 (setq display-line-numbers 'relative)
+(setq mac-right-option-modifier nil)
 
 ;; use-package
 (unless (package-installed-p 'use-package) 
